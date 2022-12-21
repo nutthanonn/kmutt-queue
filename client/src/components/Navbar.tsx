@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="nav min-h-10 flex items-center fixed top-0 z-10 w-full justify-between px-10">
       <div>
-        <img src={WebsiteLogo} width={120} />
+        <img src={WebsiteLogo} width={120} alt="Logo website" />
       </div>
       <div className="inline-flex items-center">
         <Switch />

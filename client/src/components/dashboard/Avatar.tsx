@@ -43,7 +43,7 @@ const Avatar: React.FC<AvatarProps> = (props) => {
           item === myQueue
             ? "bg-blue-500 w-20 h-20"
             : "bg-[#213547] dark:(bg-[#ffffff]) w-10 h-10 "
-        }`}
+        } `}
       >
         {item === myQueue ? (
           <BiBeenHere size={40} className="fill-light-50" />
@@ -52,12 +52,12 @@ const Avatar: React.FC<AvatarProps> = (props) => {
         )}
       </div>
       <div
-        className={`absolute bottom-[-30px] w-30 ${
+        className={`absolute bottom-[-40px] w-30 ${
           item === myQueue ? "left-[-5px]" : "left-3.5"
         }`}
       >
         <Typography type="p">
-          {item === myQueue ? "You Are Here" : item}
+          {item === myQueue ? "You are here" : item}
         </Typography>
       </div>
     </div>

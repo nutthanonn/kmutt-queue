@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex justify-center min-h-screen items-center flex-col">
-      <img src={KMUTTLogo} width={150} />
+      <img src={KMUTTLogo} width={150} alt="KMUTT logo" />
       <div>
         <Button onClick={handleSignIn}>
           <img
