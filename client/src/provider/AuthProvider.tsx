@@ -9,6 +9,8 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = (props) => {
     const isAuth = useIsAuthenticated();
     if (!isAuth) {
       navigate("/");
+    } else {
+      navigate("/dashboard");
     }
   }, []);
 

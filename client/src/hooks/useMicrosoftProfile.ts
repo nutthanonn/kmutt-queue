@@ -19,15 +19,20 @@ export const useMicrosoftProfile = () => {
         })
         .then((response) => {
           callMsGraph(response.accessToken)
-            .then((response) => setProfile(response))
+            .then((response) => {
+              setProfile(response);
+            })
             .catch(() => {
               navigate("/");
             });
+        })
+        .catch(() => {
+          navigate("/");
         });
     }
 
     RequestProfileData();
-  }, []);
+  }, [navigate, instance, accounts]);
 
   return { profile };
 };
