@@ -7,7 +7,8 @@ export const getRoomData = async () => {
   };
 
   const res = await axios.get(
-    "http://localhost:8000/api/room/" + sessionStorage.getItem("roomId")
+    "https://kmutt-queue-backend.onrender.com/api/room/" +
+      sessionStorage.getItem("roomId")
   );
 
   if (res.data) {
