@@ -1,4 +1,4 @@
-import { MicrosoftProfile, RoomData } from "./../interfaces/RoomData";
+import { MicrosoftProfile, RoomData } from "./interfaces/RoomData";
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
