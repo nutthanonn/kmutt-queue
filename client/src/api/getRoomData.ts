@@ -7,10 +7,8 @@ export const getRoomData = async () => {
   };
 
   const res = await axios.get(
-    "http://localhost:8000/api/room?roomId=" + sessionStorage.getItem("roomId")
+    "http://localhost:8000/api/room/" + sessionStorage.getItem("roomId")
   );
-
-  console.log(res.data);
 
   if (res.data) {
     res.data.data.map((item: any) => {
@@ -18,9 +16,8 @@ export const getRoomData = async () => {
         queue.myQueue = item.queue;
       }
     });
+    queue.totalQueue = res.data.data.length;
   }
-
-  queue.totalQueue = res.data.data.length;
 
   return queue;
 };

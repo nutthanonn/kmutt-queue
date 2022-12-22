@@ -11,25 +11,43 @@ import { makeShortLink } from "../helper/makeShortLink";
 import { v4 as uuidv4 } from "uuid";
 import { socket } from "../config/socketConfig";
 import { getRoomData } from "../api/getRoomData";
-import { useInQueue } from "../hooks/useQueue";
 import { Beforeunload } from "react-beforeunload";
 
 const Dashboard: React.FC = () => {
   const { profile } = useMicrosoftProfile();
-  const { inQueue } = useInQueue();
 
+  const [queue, setQueue] = useState({
+    totalQueue: 0,
+    myQueue: 0,
+  });
   const [copy, setCopy] = useState({
     isCopy: false,
     text: "",
   });
-  const [queue, setQueue] = useState(inQueue);
 
   const [makeQueue, setMakeQueue] = useState<boolean>(queue.totalQueue > 0);
+
+  useEffect(() => {
+    async function checkQueue() {
+      const res = await getRoomData();
+      setQueue(res);
+      setCopy({
+        isCopy: false,
+        text: await makeShortLink(
+          "https://kmutt-generate-queue.vercel.app/room?q=" +
+            sessionStorage.getItem("roomId")
+        ),
+      });
+    }
+
+    checkQueue();
+  }, []);
 
   useEffect(() => {
     socket.on("check_queue", async () => {
       const res = await getRoomData();
       setQueue(res);
+      console.log(res);
     });
   }, [socket]);
 
@@ -80,10 +98,10 @@ const Dashboard: React.FC = () => {
       <Beforeunload onBeforeunload={() => "You will lose your queue!"} />
       <Header profile={profile} />
       <hr />
-      {makeQueue ? (
+      {makeQueue || queue.totalQueue > 0 ? (
         <div className="mt-10">
           <div className="flex items-center justify-between relative">
-            <CountQueue myQueue={queue.myQueue} />
+            <CountQueue myQueue={queue.myQueue} totalQueue={queue.totalQueue} />
             <DashboardButton makeQueue={makeQueue} handleExit={handleExit} />
           </div>
           <QueueBlock {...queue} />

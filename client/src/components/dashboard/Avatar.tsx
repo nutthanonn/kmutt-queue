@@ -41,8 +41,8 @@ const Avatar: React.FC<AvatarProps> = (props) => {
       <div
         className={`rounded-full flex items-center justify-center ${
           item === myQueue
-            ? "bg-blue-500 w-20 h-20"
-            : "bg-[#213547] dark:(bg-[#ffffff]) w-10 h-10 "
+            ? "bg-blue-500 w-20 h-20 ring-5 ring-green-300"
+            : "bg-[#213547] dark:(bg-[#ffffff]) w-10 h-10"
         } `}
       >
         {item === myQueue ? (

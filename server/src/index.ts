@@ -18,7 +18,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://kmutt-generate-queue.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
@@ -37,7 +37,10 @@ io.on("connection", (socket) => {
     const sockets = await io.in(roomObject.roomId).fetchSockets();
     console.log("Number of users in room: " + sockets.length);
 
-    socket.to(roomObject.roomId).emit("check_queue");
+    socket.to(roomObject.roomId).emit("check_queue", {
+      queue: sockets.length,
+      user: roomObject as MicrosoftProfile,
+    });
 
     if (
       RoomData.filter((item) => item.roomId === roomObject.roomId).length === 0
@@ -66,6 +69,7 @@ io.on("connection", (socket) => {
   socket.on("dequeue", async ({ ...roomObject }) => {
     try {
       socket.leave(roomObject.roomId);
+      const sockets = await io.in(roomObject.roomId).fetchSockets();
       console.log("User left room: " + roomObject.id);
       var target_index = 0;
 
@@ -110,7 +114,10 @@ io.on("connection", (socket) => {
         });
       }
 
-      socket.to(roomObject.roomId).emit("check_queue");
+      socket.to(roomObject.roomId).emit("check_queue", {
+        queue: sockets.length,
+        user: roomObject as MicrosoftProfile,
+      });
     } catch (e) {
       console.log("[error]", "leave room :", e);
       socket.emit("error", "couldnt perform requested action");
@@ -130,8 +137,17 @@ app.post("/api/token", (req, res) => {
   res.json({ token });
 });
 
-app.get("/api/room", (req, res) => {
-  res.json(RoomData.filter((item) => item.roomId === req.query.roomId)[0]);
+app.get("/api/room/:id", (req, res) => {
+  res.json(RoomData.filter((item) => item.roomId === req.params.id)[0]);
+});
+
+app.get("/api/check/:id", (req, res) => {
+  console.log(req.params.id);
+
+  res.json({
+    status:
+      RoomData.filter((item) => item.roomId === req.params.id).length !== 0,
+  });
 });
 
 server.listen(8000, () => {
