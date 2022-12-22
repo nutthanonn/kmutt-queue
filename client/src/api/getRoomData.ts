@@ -1,4 +1,5 @@
 import axios from "axios";
+import { DEFAULT_API } from "./defaultAPI";
 
 export const getRoomData = async () => {
   const queue = {
@@ -7,8 +8,7 @@ export const getRoomData = async () => {
   };
 
   const res = await axios.get(
-    "https://kmutt-queue-backend.onrender.com/api/room/" +
-      sessionStorage.getItem("roomId"),
+    `${DEFAULT_API}/api/room/` + sessionStorage.getItem("roomId"),
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
