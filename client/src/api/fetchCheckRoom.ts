@@ -5,8 +5,7 @@ export const fetchCheckRoom = async (id: string) => {
     "https://kmutt-queue-backend.onrender.com/api/check/" + id,
     {
       headers: {
-        "Access-Control-Allow-Origin":
-          "https://kmutt-generate-queue.vercel.app/",
+        "Access-Control-Allow-Origin": "*",
       },
     }
   );
