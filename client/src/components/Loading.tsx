@@ -7,11 +7,7 @@ interface LoadingProps {
 }
 
 const Loading: React.FC<LoadingProps> = (props) => {
-  return (
-    <div {...props}>
-      <Lottie animationData={wave} />
-    </div>
-  );
+  return <Lottie animationData={wave} {...props} />;
 };
 
 export default Loading;
