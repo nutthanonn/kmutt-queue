@@ -11,8 +11,7 @@ export const getRoomData = async () => {
       sessionStorage.getItem("roomId"),
     {
       headers: {
-        "Access-Control-Allow-Origin":
-          "https://kmutt-generate-queue.vercel.app/",
+        "Access-Control-Allow-Origin": "*",
       },
     }
   );

@@ -129,20 +129,14 @@ io.on("connection", (socket) => {
   });
 });
 
-app.post("/api/token", (req, res) => {
-  const token = jwt.sign({ ...req.body }, process.env.JWT_SECRET as string, {
-    expiresIn: "24h",
-  });
-
-  res.json({ token });
-});
-
 app.get("/api/room/:id", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
   res.json(RoomData.filter((item) => item.roomId === req.params.id)[0]);
 });
 
 app.get("/api/check/:id", (req, res) => {
-  console.log(req.params.id);
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   res.json({
     status:
