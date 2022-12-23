@@ -18,7 +18,7 @@ export const getRoomData = async () => {
 
   if (res.data) {
     res.data.data.map((item: any) => {
-      if (item.user.id === Object.keys(sessionStorage)[1].split(".")[0]) {
+      if (item.user.id === Object.keys(sessionStorage)[2].split(".")[0]) {
         queue.myQueue = item.queue;
       }
     });
