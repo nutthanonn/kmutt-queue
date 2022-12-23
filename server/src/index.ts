@@ -56,10 +56,15 @@ io.on("connection", (socket) => {
     } else {
       RoomData.map((item) => {
         if (item.roomId === roomObject.roomId) {
-          return item.data.push({
-            queue: sockets.length,
-            user: roomObject as MicrosoftProfile,
-          });
+          if (
+            item.data.filter((item) => item.user.id === roomObject.id)
+              .length === 0
+          ) {
+            return item.data.push({
+              queue: sockets.length,
+              user: roomObject as MicrosoftProfile,
+            });
+          }
         }
       });
     }
