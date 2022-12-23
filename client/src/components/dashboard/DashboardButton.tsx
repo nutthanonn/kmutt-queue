@@ -13,6 +13,8 @@ interface DashboardButtonProps {
 const DashboardButton: React.FC<DashboardButtonProps> = (props) => {
   const { makeQueue, onClick, handleExit } = props;
 
+  console.log(makeQueue);
+
   return (
     <div>
       {makeQueue ? (

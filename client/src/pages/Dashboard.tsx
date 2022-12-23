@@ -83,6 +83,8 @@ const Dashboard: React.FC = () => {
       totalQueue: 0,
       myQueue: 0,
     });
+
+    sessionStorage.removeItem("roomId");
   };
 
   const handleCopy = () => {
@@ -102,7 +104,10 @@ const Dashboard: React.FC = () => {
         <div className="mt-10">
           <div className="flex items-center justify-between relative">
             <CountQueue myQueue={queue.myQueue} totalQueue={queue.totalQueue} />
-            <DashboardButton makeQueue={makeQueue} handleExit={handleExit} />
+            <DashboardButton
+              makeQueue={queue.totalQueue > 0}
+              handleExit={handleExit}
+            />
           </div>
           <QueueBlock {...queue} />
           <div className="text-center mt-10">
