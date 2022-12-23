@@ -20,6 +20,7 @@ export const useQueryRoomId = (profile: MicrosoftProfile) => {
 
         if (res.status) {
           socket.emit("enqueue", { ...profile, roomId: query });
+          sessionStorage.setItem("roomId", query as string);
           navigate("/dashboard");
         } else {
           navigate("/notfound");
